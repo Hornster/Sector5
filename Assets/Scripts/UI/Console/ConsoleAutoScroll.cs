@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,32 +12,31 @@ namespace Assets.Scripts.UI.Console
 {
     public class ConsoleAutoScroll : MonoBehaviour
     {
-        [Tooltip("The transform of the object that holds the content.")]
+        [Tooltip("The owner of the scrollbar that should be scrolled automatically.")]
         [SerializeField]
-        private RectTransform _scrolledContentTransform;
-        [Tooltip("Reference to the scrollbar that will be automatically scrolled.")]
-        [SerializeField]
-        private Scrollbar _scrollBar;
+        private ScrollRect _scrollRect;
         [Tooltip("Should the bar be scrolled to the value of 0 or 1? TRUE for 0, FALSE for 1")]
         [SerializeField] private bool _scrollTo0;
 
         public void AutoScroll()
         {
-            Canvas.ForceUpdateCanvases();
-            //_scrolledContentTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _scrolledContentTransform.rect.height);
-            //_scrolledContentTransform.ForceUpdateRectTransforms();
-            //var pos =_scrolledContentTransform.position;
-            //pos.y = pos.y + 0.00000001f;
-            //_scrolledContentTransform.position = pos;
+            StartCoroutine(ApplyScrollPosition());
+
+        }
+
+        private IEnumerator ApplyScrollPosition()
+        {
+            yield return new WaitForEndOfFrame();
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.transform as RectTransform);
             if (_scrollTo0)
             {
-                _scrollBar.value = 0.0f;
+                _scrollRect.verticalNormalizedPosition = 0.0f;
             }
             else
             {
-                _scrollBar.value = 1.0f;
+                _scrollRect.verticalNormalizedPosition = 1.0f;
             }
-            
         }
     }
 }

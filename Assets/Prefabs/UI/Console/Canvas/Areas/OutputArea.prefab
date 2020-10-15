@@ -92,7 +92,7 @@ MonoBehaviour:
   _onPrintMessage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 888566671716280574}
+      - m_Target: {fileID: 2134933947591632814}
         m_MethodName: AutoScroll
         m_Mode: 1
         m_Arguments:
@@ -253,15 +253,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4252891720183864408}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &5938335936806487032 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7596582388131159968, guid: 9357793c2d0e0494e9c9ca7aa0bc560f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4252891720183864408}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &888566671716280574 stripped
+--- !u!114 &2134933947591632814 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3986139573156852902, guid: 9357793c2d0e0494e9c9ca7aa0bc560f,
+  m_CorrespondingSourceObject: {fileID: 2784774201244744694, guid: 9357793c2d0e0494e9c9ca7aa0bc560f,
     type: 3}
   m_PrefabInstance: {fileID: 4252891720183864408}
   m_PrefabAsset: {fileID: 0}
@@ -271,3 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca62d81e0a92ad40a39d155e9f30a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &5938335936806487032 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7596582388131159968, guid: 9357793c2d0e0494e9c9ca7aa0bc560f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4252891720183864408}
+  m_PrefabAsset: {fileID: 0}

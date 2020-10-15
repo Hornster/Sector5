@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9072578576573312338}
   - component: {fileID: 5908192906253663842}
   - component: {fileID: 8637191557299372904}
+  - component: {fileID: 2784774201244744694}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -107,6 +108,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2784774201244744694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383000076055347538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca62d81e0a92ad40a39d155e9f30a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scrollRect: {fileID: 8637191557299372904}
+  _scrollBar: {fileID: 1297093515029673708}
+  _scrollTo0: 1
 --- !u!1 &3008929740069701476
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +245,6 @@ GameObject:
   - component: {fileID: 2766129205778339317}
   - component: {fileID: 4864229553582733294}
   - component: {fileID: 1297093515029673708}
-  - component: {fileID: 3986139573156852902}
   m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
@@ -342,21 +357,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3986139573156852902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5485555277929161480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ca62d81e0a92ad40a39d155e9f30a8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scrolledContentTransform: {fileID: 0}
-  _scrollBar: {fileID: 1297093515029673708}
-  _scrollTo0: 1
 --- !u!1 &6770145083398062547
 GameObject:
   m_ObjectHideFlags: 0
