@@ -5,6 +5,7 @@
 
 using System;
 using Assets.Scripts.Common.Enums;
+using Assets.Scripts.Logic.Data;
 using UnityEngine;
 
 namespace Assets.Scripts.Common.CustomCollections.DefaultCollectionsSerialization.Dictionary
@@ -31,4 +32,22 @@ namespace Assets.Scripts.Common.CustomCollections.DefaultCollectionsSerializatio
     /// </summary>
     [Serializable]
     public class ConsoleOutputTypeColorDictionary : SerializableDictionary<ConsoleOutputType, Color> {}
+
+    //---------------------
+    // string => CommandReceivers
+    //---------------------
+    /// <summary>
+    /// Serializable dictionary type for two menu types.
+    /// </summary>
+    [Serializable]
+    public class CommandReceiverStringDictionary : SerializableDictionary<CommandReceivers, string> { }
+
+    //---------------------
+    // string => AvailableCommands
+    //---------------------
+    /// <summary>
+    /// Serializable dictionary type for two menu types.
+    /// </summary>
+    [Serializable]
+    public class AvailableCommandsStringDictionary : SerializableDictionary<AvailableCommands, string> { }
 }

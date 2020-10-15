@@ -54,4 +54,38 @@ namespace Assets.Editor.Scripts.CustomCollections.Serializing.Dictionary
     }
 
     internal class SerializableMenuTypeMenuTypeTemplate : SerializableKeyValueTemplate<ConsoleOutputType, Color> { }
+
+    //---------------------
+    // string => CommandReceivers
+    //---------------------
+    /// <summary>
+    /// Drawer for MenuType=>MenuType dictionary.
+    /// </summary>
+    [UnityEditor.CustomPropertyDrawer(typeof(CommandReceiverStringDictionary))]
+    public class CommandReceiverStringDictionaryDrawer : SerializableDictionaryDrawer<CommandReceivers, string>
+    {
+        protected override SerializableKeyValueTemplate<CommandReceivers, string> GetTemplate()
+        {
+            return GetGenericTemplate<CommandReceiverStringTemplate>();
+        }
+    }
+
+    internal class CommandReceiverStringTemplate : SerializableKeyValueTemplate<CommandReceivers, string> { }
+
+    //---------------------
+    // string => AvailableCommands
+    //---------------------
+    /// <summary>
+    /// Drawer for MenuType=>MenuType dictionary.
+    /// </summary>
+    [UnityEditor.CustomPropertyDrawer(typeof(AvailableCommandsStringDictionary))]
+    public class AvailableCommandsStringDictionaryDrawer : SerializableDictionaryDrawer<AvailableCommands, string>
+    {
+        protected override SerializableKeyValueTemplate<AvailableCommands, string> GetTemplate()
+        {
+            return GetGenericTemplate<AvailableCommandsStringTemplate>();
+        }
+    }
+
+    internal class AvailableCommandsStringTemplate : SerializableKeyValueTemplate<AvailableCommands, string> { }
 }
