@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: ReceiverTypeInterpreterConfigSO
   m_EditorClassIdentifier: 
   _knownReceivers:
-    keys: 
-    values: []
+    keys: 000000000100000002000000
+    values:
+    - d
+    - a
+    - Int

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc40083ab65bf84a9b836edbca30883, type: 3}
   m_Name: CommandArgInterpreterConfigSO
   m_EditorClassIdentifier: 
-  _knownArguments:
-    keys: 
-    values: []
+  _knownCommandsWithArguments:
+    keys: 00000000
+    values:
+    - GO
