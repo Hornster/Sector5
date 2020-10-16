@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using Assets.Scripts.Common.Data.ScriptableObjects;
 using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
+using UnityEngine;
 
 namespace Assets.Scripts.Logic.Commands.Interpreter
 {
     public class ReceiverIDInterpreter : ICommandInterpreter
     {
+        [SerializeField]
         private ReceiverIDInterpreterConfigSO _receiverIdInterpreterConfigSo;
+        [SerializeField]
+        private ReceiverTypeInterpreterConfigSO _receiverTypeInterpreterConfigSo;
         public (bool, Command) Interpret(List<string> input, Command command)
         {
             var idRequiringReceivers = _receiverIdInterpreterConfigSo.IDRequiringReceivers;
@@ -22,7 +26,9 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
             }
 
             //If we got here, then surely the input for receiver is present.
-            var potentialReceiverId = RemoveReceiverName(input[0], command.CommandReceiver);
+            var receiverMark = _receiverTypeInterpreterConfigSo.KnownReceivers[command.CommandReceiver];
+            var potentialReceiverId = RemoveReceiverName(input[0], receiverMark);
+            
             if (potentialReceiverId.Length <= 0)
             {
                 return InvalidReceiverID(command);
@@ -38,9 +44,9 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
             return InvalidReceiverID(command);
         }
 
-        private string RemoveReceiverName(string commandValue, CommandReceivers receiverType)
+        private string RemoveReceiverName(string commandValue, string receiverMark)
         {
-            return commandValue.Replace(receiverType.ToString(), "");
+            return commandValue.Replace(receiverMark.ToLower(), "");
         }
 
         private (bool, Command) InvalidReceiverID(Command command)

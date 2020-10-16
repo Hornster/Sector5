@@ -15,7 +15,7 @@ namespace Assets.Scripts.Common.Data.ScriptableObjects
     {
         [Tooltip("All known argument pre- and postfixes. Argumentless commands shall not be in here.")]
         [SerializeField]
-        private AvailableCommandsStringDictionary _knownArguments;
+        private AvailableCommandsStringDictionary _knownArguments = new AvailableCommandsStringDictionary();
 
         public Dictionary<AvailableCommands, string> KnownArguments
         {

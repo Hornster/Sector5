@@ -58,7 +58,7 @@ namespace Assets.Scripts.Logic.Commands
 
             for (int i = 0; i < segmentedCommand.Count; i++)
             {
-                var commandSegmend = segmentedCommand[i];
+                var commandSegmend = segmentedCommand[i].ToLower();
                 if (commandSegmend.Contains(CommandSeparator))
                 {
                     //TODO add additional separation for multiple commands. currentlySeparatedCommand should

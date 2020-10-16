@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Common.CustomEvents;
 using Assets.Scripts.Common.Enums;
+using Assets.Scripts.Logic.Commands;
 using Assets.Scripts.UI.Console;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class ConsoleCommandRetriever : MonoBehaviour
     [SerializeField] private const string AutoResponsePrefix = ">";
 
     [SerializeField] private ConsoleOutputTypeStringStringUnityEvent _consoleOutput;
+
+    [SerializeField] private CommandParser _commandParser;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +35,15 @@ public class ConsoleCommandRetriever : MonoBehaviour
     public void NewCommandDelivered(string newInput)
     {
         _consoleOutput?.Invoke(ConsoleOutputType.Regular, AutoResponsePrefix, newInput);
+        var result = _commandParser.TryParseCommand(newInput, out var command);
+        if (result == false)
+        {
+            _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, newInput);
+            _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, command.CommandParseError.ToString());
+        }
+        else
+        {
+            _consoleOutput?.Invoke(ConsoleOutputType.Positive, AutoResponsePrefix, command.ToString());
+        }
     }
 }

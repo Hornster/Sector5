@@ -8,5 +8,6 @@ using UnityEngine;
 public enum CommandReceivers
 {
     Drone,
-    Airlock
+    Airlock,
+    Interface
 }

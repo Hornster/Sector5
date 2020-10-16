@@ -24,5 +24,18 @@ namespace Assets.Scripts.Logic.Data
         /// </summary>
         public List<int> Args { get; set; }
         public CommandError CommandParseError { get; set; }
+
+        public override string ToString()
+        {
+            var result = $"Command: {CommandReceiver.ToString()}{ReceiverID} {IssuedCommand}";
+            if (Args.Count > 0)
+            {
+                foreach (var arg in Args)
+                {
+                    result = result += $" {arg}";
+                }
+            }
+            return result;
+        }
     }
 }

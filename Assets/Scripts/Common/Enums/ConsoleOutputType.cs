@@ -9,6 +9,7 @@ namespace Assets.Scripts.Common.Enums
     public enum ConsoleOutputType
     {
         Regular,
-        Error
+        Error,
+        Positive
     }
 }

@@ -14,7 +14,7 @@ namespace Assets.Scripts.Common.Data.ScriptableObjects
     {
         [Tooltip("Stores available commands and strings that represent them.")]
         [SerializeField]
-        private AvailableCommandsStringDictionary _knownCommands;
+        private AvailableCommandsStringDictionary _knownCommands = new AvailableCommandsStringDictionary();
 
         public Dictionary<AvailableCommands, string> KnownCommands
         {
