@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cbfaf237bb61a2488c8cd3c47cbf737, type: 3}
   m_Name: ReceiverIDInterpreterConfigSO
   m_EditorClassIdentifier: 
-  _idRequiringReceivers: 
+  _idRequiringReceivers: 0000000001000000
