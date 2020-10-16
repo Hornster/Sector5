@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Assets.Scripts.Common.CustomCollections.DefaultCollectionsSerialization.Dictionary;
 using Assets.Scripts.Common.Data.ScriptableObjects;
+using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -40,10 +41,11 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
             
             if (input.Count <= ReceiverPosition)
             {
-                command = null;
-                return (false, command);
+                return InvalidCommandType(command);
             }
+
             var testedCommand = input[ReceiverPosition];
+
             for (int i = 0; i < _allReceivers.Count; i++)
             {
                 //No TryGets - all of the positions need to be supplied to the ScriptableObject.
@@ -57,7 +59,12 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
                 }
             }
 
-            return (false, null);
+            return InvalidCommandType(command);
+        }
+        private (bool, Command) InvalidCommandType(Command command)
+        {
+            command.CommandParseError = CommandError.ParseErrorIncorrectReceiverID;
+            return (false, command);
         }
     }
 }

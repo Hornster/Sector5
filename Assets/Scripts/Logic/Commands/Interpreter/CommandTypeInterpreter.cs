@@ -28,7 +28,13 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
         {
             _availableCommands = Enum.GetValues(typeof(AvailableCommands)) as AvailableCommands[];
         }
-
+        /// <summary>
+        /// Parses the command type part of the command. If failure, returns false and puts the
+        /// reason in command error field.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public (bool, Command) Interpret(List<string> input, Command command)
         {
             if (input.Count < 2)
@@ -60,7 +66,9 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
                 }
             }
             //If we got here, that means there was a value but it was not a known command value.
-            return (false, null);
+            command.CommandParseError = CommandError.ParseErrorIncorrectCommandType;
+            return (false, command);
         }
+
     }
 }

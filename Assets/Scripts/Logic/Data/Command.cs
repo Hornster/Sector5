@@ -23,5 +23,6 @@ namespace Assets.Scripts.Logic.Data
         /// Arguments for the command (if applicable).
         /// </summary>
         public List<int> Args { get; set; }
+        public CommandError CommandParseError { get; set; }
     }
 }

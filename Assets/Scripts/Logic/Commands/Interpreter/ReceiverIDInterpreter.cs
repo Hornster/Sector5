@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Scripts.Common.Data.ScriptableObjects;
+using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
 
 namespace Assets.Scripts.Logic.Commands.Interpreter
@@ -24,7 +25,7 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
             var potentialReceiverId = RemoveReceiverName(input[0], command.CommandReceiver);
             if (potentialReceiverId.Length <= 0)
             {
-                return (false, null);
+                return InvalidReceiverID(command);
             }
 
             if (int.TryParse(potentialReceiverId, out int receiverId))
@@ -34,12 +35,18 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
             }
 
             //If we got here, then something more is present in there indeed, but it is definitely not an ID.
-            return (false, null);
+            return InvalidReceiverID(command);
         }
 
         private string RemoveReceiverName(string commandValue, CommandReceivers receiverType)
         {
             return commandValue.Replace(receiverType.ToString(), "");
+        }
+
+        private (bool, Command) InvalidReceiverID(Command command)
+        {
+            command.CommandParseError = CommandError.ParseErrorIncorrectReceiverID;
+            return (false, command);
         }
     }
 }
