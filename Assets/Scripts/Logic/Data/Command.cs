@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Data
 {
-    public class Command : MonoBehaviour
+    public class Command
     {
         /// <summary>
         /// Who is the receiver of the command?

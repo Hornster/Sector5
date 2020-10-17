@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Commands.Interpreter
 {
-    public class ReceiverIDInterpreter : ICommandInterpreter
+    public class ReceiverIDInterpreter : MonoBehaviour, ICommandInterpreter
     {
         [SerializeField]
         private ReceiverIDInterpreterConfigSO _receiverIdInterpreterConfigSo;

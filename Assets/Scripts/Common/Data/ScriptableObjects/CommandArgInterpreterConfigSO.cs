@@ -17,7 +17,7 @@ namespace Assets.Scripts.Common.Data.ScriptableObjects
         [SerializeField]
         private AvailableCommandsStringDictionary _knownCommandsWithArguments = new AvailableCommandsStringDictionary();
 
-        public Dictionary<AvailableCommands, string> KnownArguments
+        public Dictionary<AvailableCommands, string> CommandsWithArgs
         {
             get => _knownCommandsWithArguments.dictionary;
         }

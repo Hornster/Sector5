@@ -15,4 +15,4 @@ MonoBehaviour:
   _knownCommandsWithArguments:
     keys: 00000000
     values:
-    - GO
+    - R
