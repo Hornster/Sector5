@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CommandTypeInterpreterConfigSO
   m_EditorClassIdentifier: 
   _knownExplicitCommands:
-    keys: 00000000
+    keys: 0000000002000000
     values:
     - GO
+    - Def
