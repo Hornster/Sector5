@@ -4,6 +4,7 @@
 //Modifications by: Karol Kozuch (CrazedAerialCable)
 
 using Assets.Scripts.Common.CustomCollections.DefaultCollectionsSerialization.Dictionary;
+using Assets.Scripts.Common.Data.ScriptableObjects;
 using Assets.Scripts.Common.Enums;
 using UnityEditor;
 using UnityEngine;
@@ -95,14 +96,14 @@ namespace Assets.Editor.Scripts.CustomCollections.Serializing.Dictionary
     /// <summary>
     /// Drawer for ReceiverType=>AvailableCommands[] dictionary.
     /// </summary>
-    [UnityEditor.CustomPropertyDrawer(typeof(CommandReceiverAvailableCommandsArrDictionary))]
-    public class CommandReceiverAvailableCommandsArrDictionaryDrawer : SerializableDictionaryDrawer<CommandReceivers, AvailableCommands[]>
+    [UnityEditor.CustomPropertyDrawer(typeof(CommandReceiversAvailableCommandsArrDictionary))]
+    public class CommandReceiverAvailableCommandsArrDictionaryDrawer : SerializableDictionaryDrawer<CommandReceivers, SingleReceiverCommandsConfigSO>
     {
-        protected override SerializableKeyValueTemplate<CommandReceivers, AvailableCommands[]> GetTemplate()
+        protected override SerializableKeyValueTemplate<CommandReceivers, SingleReceiverCommandsConfigSO> GetTemplate()
         {
-            return GetGenericTemplate<CommandReceiverAvailableCommandsArrDictionary>();
+            return GetGenericTemplate<CommandReceiverAvailableCommandsArrTemplate>();
         }
     }
 
-    internal class CommandReceiverAvailableCommandsArrDictionary : SerializableKeyValueTemplate<CommandReceivers, AvailableCommands[]> { }
+    internal class CommandReceiverAvailableCommandsArrTemplate : SerializableKeyValueTemplate<CommandReceivers, SingleReceiverCommandsConfigSO> { }
 }

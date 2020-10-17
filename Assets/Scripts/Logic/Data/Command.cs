@@ -28,7 +28,7 @@ namespace Assets.Scripts.Logic.Data
         public override string ToString()
         {
             var result = $"Command: {CommandReceiver.ToString()}{ReceiverID} {IssuedCommand}";
-            if (Args.Count > 0)
+            if (Args?.Count > 0)
             {
                 foreach (var arg in Args)
                 {

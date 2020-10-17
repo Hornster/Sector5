@@ -12,13 +12,13 @@ namespace Assets.Scripts.Common.Data.ScriptableObjects
     /// <summary>
     /// Defines which receiver can use what command.
     /// </summary>
-    [CreateAssetMenu(fileName = "ReceiverCommandConfigurationSO", menuName = "ScriptableObjects/Interpreter/ReceiverCommandConfigurationSO", order = 5)]
-    public class ReceiverCommandConfigurationSO : ScriptableObject
+    [CreateAssetMenu(fileName = "ReceiversCommandsConfigurationSO", menuName = "ScriptableObjects/Interpreter/ReceiversCommandsConfigurationSO", order = 5)]
+    public class ReceiversCommandsConfigurationSO : ScriptableObject
     {
         [Tooltip("Stores info about what commands concern given receiver.")]
         [SerializeField]
         private CommandReceiversAvailableCommandsArrDictionary _commandsOfReceivers = new CommandReceiversAvailableCommandsArrDictionary();
 
-        public Dictionary<CommandReceivers, AvailableCommands[]> CommandsOfReceivers { get => _commandsOfReceivers.dictionary; }
+        public Dictionary<CommandReceivers, SingleReceiverCommandsConfigSO> CommandsOfReceivers { get => _commandsOfReceivers.dictionary; }
     }
 }

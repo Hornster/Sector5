@@ -12,6 +12,7 @@ namespace Assets.Scripts.Common.Enums
         ParseErrorIncorrectCommandType,
         ParseErrorIncorrectCommandReceiver,
         ParseErrorIncorrectReceiverID,
-        ParseErrorIncorrectCommandArgs
+        ParseErrorIncorrectCommandArgs,
+        LogicEvaluationErrorIncorrectCommandForReceiver
     }
 }
