@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Assets.Scripts.Common.CustomEvents;
 using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Commands;
@@ -35,15 +36,20 @@ public class ConsoleCommandRetriever : MonoBehaviour
     public void NewCommandDelivered(string newInput)
     {
         _consoleOutput?.Invoke(ConsoleOutputType.Regular, AutoResponsePrefix, newInput);
-        var result = _commandParser.TryParseCommand(newInput, out var command);
+        var result = _commandParser.TryParseCommand(newInput, out var commands);
         if (result == false)
         {
             _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, newInput);
-            _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, command.CommandParseError.ToString());
+            _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, commands[commands.Count-1].CommandParseError.ToString());
         }
         else
         {
-            _consoleOutput?.Invoke(ConsoleOutputType.Positive, AutoResponsePrefix, command.ToString());
+            var stringBuilder = new StringBuilder();
+            for(int i = 0; i < commands.Count; i++)
+            {
+                stringBuilder.AppendLine(commands[i].ToString());
+            }
+            _consoleOutput?.Invoke(ConsoleOutputType.Positive, AutoResponsePrefix, stringBuilder.ToString());
         }
     }
 }

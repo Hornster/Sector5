@@ -88,4 +88,21 @@ namespace Assets.Editor.Scripts.CustomCollections.Serializing.Dictionary
     }
 
     internal class AvailableCommandsStringTemplate : SerializableKeyValueTemplate<AvailableCommands, string> { }
+
+    //---------------------
+    // ReceiverType => AvailableCommands[]
+    //---------------------
+    /// <summary>
+    /// Drawer for ReceiverType=>AvailableCommands[] dictionary.
+    /// </summary>
+    [UnityEditor.CustomPropertyDrawer(typeof(CommandReceiverAvailableCommandsArrDictionary))]
+    public class CommandReceiverAvailableCommandsArrDictionaryDrawer : SerializableDictionaryDrawer<CommandReceivers, AvailableCommands[]>
+    {
+        protected override SerializableKeyValueTemplate<CommandReceivers, AvailableCommands[]> GetTemplate()
+        {
+            return GetGenericTemplate<CommandReceiverAvailableCommandsArrDictionary>();
+        }
+    }
+
+    internal class CommandReceiverAvailableCommandsArrDictionary : SerializableKeyValueTemplate<CommandReceivers, AvailableCommands[]> { }
 }

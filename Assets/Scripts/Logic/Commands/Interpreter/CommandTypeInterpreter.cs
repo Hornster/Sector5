@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Commands.Interpreter
 {
+    /// <summary>
+    /// Intepretes command type from provided command list.
+    /// </summary>
     public class CommandTypeInterpreter : MonoBehaviour, ICommandInterpreter
     {
         [Tooltip("Configuration of available commands.")]

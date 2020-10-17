@@ -50,4 +50,13 @@ namespace Assets.Scripts.Common.CustomCollections.DefaultCollectionsSerializatio
     /// </summary>
     [Serializable]
     public class AvailableCommandsStringDictionary : SerializableDictionary<AvailableCommands, string> { }
+
+    //---------------------
+    // CommandReceivers => AvailableCommands[]
+    //---------------------
+    /// <summary>
+    /// Serializable dictionary type of AvailableCommands arrays grouped by CommandReceivers.
+    /// </summary>
+    [Serializable]
+    public class CommandReceiversAvailableCommandsArrDictionary : SerializableDictionary<CommandReceivers, AvailableCommands[]> { }
 }
