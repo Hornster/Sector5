@@ -11,6 +11,7 @@
         Go,
         ToggleAirlock,
         ToggleDefenseSystems,
+        Interface,
         NoCommand
     }
 }

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Common.Enums;
 using UnityEngine;
 
 
 namespace Assets.Scripts.Logic.Data
 {
+    [Serializable]
     public class Command
     {
         /// <summary>

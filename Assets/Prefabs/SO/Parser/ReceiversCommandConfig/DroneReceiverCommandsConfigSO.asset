@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DroneReceiverCommandsConfigSO
   m_EditorClassIdentifier: 
   _receiver: 0
-  _commandsOfReceiver: 0000000003000000
+  _commandsOfReceiver: 000000000300000004000000
