@@ -52,6 +52,12 @@ public class Drone : MonoBehaviour
         int targetRoomId = currentlyProcessedCommand.Args[0];
         Room room = RoomManager.Instance.GetRoomById(targetRoomId);
 
+        if (room == null)
+        {
+            _response?.Invoke(RoomNotExistResponse(currentlyProcessedCommand));
+            return;
+        }
+
         Vector3 targetRoomCenterPosition = room.GetCenter();
 
         navMeshComponent.SetDestination(targetRoomCenterPosition);
@@ -77,6 +83,16 @@ public class Drone : MonoBehaviour
             ConsoleOutputType = ConsoleOutputType.Error,
             MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
             Message = $"Error: Command not recognized: {command.IssuedCommand.ToString()}!"
+        };
+    }
+
+    private CommandResponse RoomNotExistResponse(Command command)
+    {
+        return new CommandResponse()
+        {
+            ConsoleOutputType = ConsoleOutputType.Error,
+            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            Message = $"Error: Room {command.Args[0]} not exist!"
         };
     }
 
