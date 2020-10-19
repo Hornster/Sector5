@@ -4,6 +4,7 @@
 //Modifications by: Karol Kozuch (CrazedAerialCable)
 
 using System;
+using Assets.Scripts.Common.Data.ScriptableObjects;
 using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
 using UnityEngine;
@@ -50,4 +51,13 @@ namespace Assets.Scripts.Common.CustomCollections.DefaultCollectionsSerializatio
     /// </summary>
     [Serializable]
     public class AvailableCommandsStringDictionary : SerializableDictionary<AvailableCommands, string> { }
+
+    //---------------------
+    // CommandReceivers => AvailableCommands[]
+    //---------------------
+    /// <summary>
+    /// Serializable dictionary type of AvailableCommands arrays grouped by CommandReceivers.
+    /// </summary>
+    [Serializable]
+    public class CommandReceiversAvailableCommandsArrDictionary : SerializableDictionary<CommandReceivers, SingleReceiverCommandsConfigSO> { }
 }

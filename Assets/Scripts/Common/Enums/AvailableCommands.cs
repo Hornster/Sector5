@@ -10,6 +10,7 @@
         /// </summary>
         Go,
         ToggleAirlock,
+        ToggleDefenseSystems,
         NoCommand
     }
 }

@@ -13,16 +13,18 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
     public class CommandArgInterpreter : MonoBehaviour, ICommandInterpreter
     {
         private const int CommandArgPosition = 2;
-        private CommandArgInterpreterConfigSO _knownArguments;
+        [SerializeField]
+        private CommandArgInterpreterConfigSO _commandsWithArgs;
         public (bool, Command) Interpret(List<string> input, Command command)
         {
             command.Args = new List<int>();
 
             var argValue = -1;
-            var knownCommands = _knownArguments.KnownArguments;
+            var knownCommands = _commandsWithArgs.CommandsWithArgs;
 
             if (knownCommands.TryGetValue(command.IssuedCommand, out var commandArgMarker))
             {
+                commandArgMarker = commandArgMarker.ToLower();
                 if (input.Count < CommandArgPosition+1)
                 {
                     //Command requires an argument but none was supplied.

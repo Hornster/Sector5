@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f44793acbe795d458dad16c83916860, type: 3}
-  m_Name: ReceiverTypeInterpreterConfigSO
+  m_Script: {fileID: 11500000, guid: edc40083ab65bf84a9b836edbca30883, type: 3}
+  m_Name: CommandArgInterpreterConfigSO
   m_EditorClassIdentifier: 
-  _knownReceivers:
-    keys: 000000000100000002000000
+  _knownCommandsWithArguments:
+    keys: 00000000
     values:
-    - d
-    - a
-    - Int
+    - R
