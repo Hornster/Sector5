@@ -10,7 +10,9 @@ using UnityEngine;
 namespace Assets.Scripts.Common.Data.ScriptableObjects
 {
     /// <summary>
-    /// Defines which receiver can use what command.
+    /// Defines which receiver can use what command. That only means that the receiver can accept the command,
+    /// whether are they able to execute it depends on themselves. For example, a drone can accept the interface command
+    /// "int" but might not be able to execute it because of lack of an interface component.
     /// </summary>
     [CreateAssetMenu(fileName = "ReceiversCommandsConfigurationSO", menuName = "ScriptableObjects/Interpreter/ReceiversCommandsConfigurationSO", order = 5)]
     public class ReceiversCommandsConfigurationSO : ScriptableObject

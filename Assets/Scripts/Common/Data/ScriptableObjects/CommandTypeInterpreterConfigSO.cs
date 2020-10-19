@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Common.Data.ScriptableObjects
 {
+    /// <summary>
+    /// Defines names of the commands in the console. For example, Interface command would be referred by the
+    /// user by typing in 'int' into the console.
+    /// </summary>
     [CreateAssetMenu(fileName = "CommandTypeInterpreterConfigSO", menuName = "ScriptableObjects/Interpreter/CommandTypeInterpreterConfigSO", order = 3)]
     public class CommandTypeInterpreterConfigSO : ScriptableObject
     {
