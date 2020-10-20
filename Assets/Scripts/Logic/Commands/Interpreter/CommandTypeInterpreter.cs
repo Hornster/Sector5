@@ -44,7 +44,7 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
             {
                 //Some commands may have no action assigned and that is fine. In terms of
                 //grammar at least.
-                command.IssuedCommand = AvailableCommands.NoCommand;
+                command.IssuedCommand = ChkImplicitCommandsOverrides(command.CommandReceiver);
                 return (true, command);
             }
 
@@ -87,6 +87,21 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
             //If we got here, that means there was a value but it was not a known command value.
             command.CommandParseError = CommandError.ParseErrorIncorrectCommandType;
             return (false, command);
+        }
+        /// <summary>
+        /// Checks if for provided receiver without command explicitly specified is there other command than NoCommand.
+        /// </summary>
+        /// <param name="commandReceiver"></param>
+        /// <returns></returns>
+        private AvailableCommands ChkImplicitCommandsOverrides(CommandReceivers commandReceiver)
+        {
+            var implicitCommandOverrides = _commandInterpreterConfig.KnownImplicitCommandsOverrides;
+            if (implicitCommandOverrides.TryGetValue(commandReceiver, out var implicitCommandOverride))
+            {
+                return implicitCommandOverride;
+            }
+
+            return AvailableCommands.NoCommand;
         }
         /// <summary>
         /// Checks if the length of the receiver that was found is equal to the length

@@ -20,10 +20,19 @@ namespace Assets.Scripts.Common.Data.ScriptableObjects
             "that do not require command part itself should not be in here.")]
         [SerializeField]
         private AvailableCommandsStringDictionary _knownExplicitCommands = new AvailableCommandsStringDictionary();
+        [Tooltip("Stores overrides for commands of command receivers that do not require command type argument. If given receiver of the command is not in here," +
+                 " the default command type they will get is NoCommand. Read: Receiver gets by default this command if no other command is explicitly provided by the user.")]
+        [SerializeField]
+        private CommandReceiversAvailableCommandsDictionary _knownImplicitCommandsOverrides = new CommandReceiversAvailableCommandsDictionary();
 
         public Dictionary<AvailableCommands, string> KnownCommands
         {
             get => _knownExplicitCommands.dictionary;
+        }
+
+        public Dictionary<CommandReceivers, AvailableCommands> KnownImplicitCommandsOverrides
+        {
+            get => _knownImplicitCommandsOverrides.dictionary;
         }
     }
 }
