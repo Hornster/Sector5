@@ -14,6 +14,8 @@ public class Drone : MonoBehaviour
     private int droneId = 1;
     [SerializeField]
     private NavMeshComponent navMeshComponent;
+    [SerializeField]
+    bool pathBlocked = false;
 
     private AvailableCommands _myCommand = AvailableCommands.Go;
     private CommandReceivers _whoAmI = CommandReceivers.Drone;
@@ -61,14 +63,11 @@ public class Drone : MonoBehaviour
 
         Vector3 targetRoomCenterPosition = room.GetCenter();
 
-        NavMeshPathStatus pathStatus = navMeshComponent.SetDestination(targetRoomCenterPosition);
+        navMeshComponent.SetDestination(targetRoomCenterPosition);
         currentRoomId = targetRoomId;
 
-        if (pathStatus.Equals(NavMeshPathStatus.PathPartial))
-            _response?.Invoke(PathBlockedResponse(targetRoomId));
-
         _response?.Invoke(PositiveResponse(currentlyProcessedCommand));
-            
+
     }
 
     private CommandResponse NegativeResponse(Command command)
@@ -81,13 +80,13 @@ public class Drone : MonoBehaviour
         };
     }
 
-    private CommandResponse PathBlockedResponse(int roomId)
+    private CommandResponse PathBlockedResponse()
     {
         return new CommandResponse()
         {
             ConsoleOutputType = ConsoleOutputType.Warning,
             MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = string.Format("Path to room r{0} blocked", roomId)
+            Message = string.Format("Path blocked")
         };
     }
 
@@ -109,5 +108,19 @@ public class Drone : MonoBehaviour
             MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
             Message = $"Moving to room {command.Args[0]}."
         };
+    }
+
+    private void Update()
+    {
+        if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathPartial) && !pathBlocked)
+        {
+            pathBlocked = true;
+            _response?.Invoke(PathBlockedResponse());
+        }
+
+        if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathComplete) && pathBlocked)
+        {
+            pathBlocked = false;
+        }
     }
 }
