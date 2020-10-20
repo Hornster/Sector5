@@ -15,6 +15,7 @@ namespace Assets.Scripts.Common.Enums
     {
         Regular,
         Error,
-        Positive
+        Positive,
+        Warning
     }
 }

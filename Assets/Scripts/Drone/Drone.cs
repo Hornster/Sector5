@@ -4,6 +4,7 @@ using Assets.Scripts.Common.CustomEvents;
 using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Drone : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class Drone : MonoBehaviour
                 continue;
             }
 
-            if(currentlyProcessedCommand.IssuedCommand == _myCommand)
+            if (currentlyProcessedCommand.IssuedCommand == _myCommand)
             {
                 GoToTargetRoom(currentlyProcessedCommand);
             }
@@ -60,10 +61,14 @@ public class Drone : MonoBehaviour
 
         Vector3 targetRoomCenterPosition = room.GetCenter();
 
-        navMeshComponent.SetDestination(targetRoomCenterPosition);
+        NavMeshPathStatus pathStatus = navMeshComponent.SetDestination(targetRoomCenterPosition);
         currentRoomId = targetRoomId;
 
+        if (pathStatus.Equals(NavMeshPathStatus.PathPartial))
+            _response?.Invoke(PathBlockedResponse(targetRoomId));
+
         _response?.Invoke(PositiveResponse(currentlyProcessedCommand));
+            
     }
 
     private CommandResponse NegativeResponse(Command command)
@@ -73,6 +78,16 @@ public class Drone : MonoBehaviour
             ConsoleOutputType = ConsoleOutputType.Error,
             MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
             Message = $"Error: Command not recognized: {command.IssuedCommand.ToString()}!"
+        };
+    }
+
+    private CommandResponse PathBlockedResponse(int roomId)
+    {
+        return new CommandResponse()
+        {
+            ConsoleOutputType = ConsoleOutputType.Warning,
+            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            Message = string.Format("Path to room r{0} blocked", roomId)
         };
     }
 

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ConsoleColorsSO
   m_EditorClassIdentifier: 
   _consoleColorsData:
-    keys: 010000000000000002000000
+    keys: 01000000000000000200000003000000
     values:
     - {r: 1, g: 0, b: 0, a: 1}
     - {r: 1, g: 1, b: 1, a: 1}
     - {r: 0.14173192, g: 0.8584906, b: 0.14173192, a: 1}
+    - {r: 0.99215686, g: 0.79607844, b: 0.05882354, a: 1}
