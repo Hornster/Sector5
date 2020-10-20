@@ -9,6 +9,7 @@ public class NavMeshComponent : MonoBehaviour
     NavMeshAgent navMeshAgent;
     [SerializeField]
     GameObject target;
+    [SerializeField]
     Vector3 targetPos;
 
     // Start is called before the first frame update

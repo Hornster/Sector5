@@ -5,17 +5,10 @@ using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
 using UnityEngine;
 
-public class Drone : MonoBehaviour
+public class AirlocksController : MonoBehaviour
 {
-    [SerializeField]
-    private int currentRoomId = 0;
-    [SerializeField]
-    private int droneId = 1;
-    [SerializeField]
-    private NavMeshComponent navMeshComponent;
-
-    private AvailableCommands _myCommand = AvailableCommands.Go;
-    private CommandReceivers _whoAmI = CommandReceivers.Drone;
+    private AvailableCommands _myCommand = AvailableCommands.ToggleAirlock;
+    private CommandReceivers _whoAmI = CommandReceivers.Airlock;
 
     [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
     [SerializeField]
@@ -31,14 +24,9 @@ public class Drone : MonoBehaviour
                 continue;
             }
 
-            if (currentlyProcessedCommand.ReceiverID != droneId)
-            {
-                continue;
-            }
-
             if(currentlyProcessedCommand.IssuedCommand == _myCommand)
             {
-                GoToTargetRoom(currentlyProcessedCommand);
+                UseTargetAirlock(currentlyProcessedCommand);
             }
             else
             {
@@ -47,22 +35,18 @@ public class Drone : MonoBehaviour
         }
     }
 
-    private void GoToTargetRoom(Command currentlyProcessedCommand)
+    private void UseTargetAirlock(Command currentlyProcessedCommand)
     {
-        int targetRoomId = currentlyProcessedCommand.Args[0];
-        Room room = RoomManager.Instance.GetRoomById(targetRoomId);
+        int targetAirlockId = currentlyProcessedCommand.ReceiverID;
+        Airlock airlock = AirlockManager.Instance.GetAirlockById(targetAirlockId);
 
-        if (room == null)
+        if (airlock == null)
         {
-            _response?.Invoke(RoomNotExistResponse(currentlyProcessedCommand));
+            _response?.Invoke(AirlockNotExistResponse(currentlyProcessedCommand));
             return;
         }
 
-        Vector3 targetRoomCenterPosition = room.GetCenter();
-
-        navMeshComponent.SetDestination(targetRoomCenterPosition);
-        currentRoomId = targetRoomId;
-
+        airlock.Use();
         _response?.Invoke(PositiveResponse(currentlyProcessedCommand));
     }
 
@@ -71,18 +55,18 @@ public class Drone : MonoBehaviour
         return new CommandResponse()
         {
             ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            MessagePrefix = _whoAmI.ToString() + '>',
             Message = $"Error: Command not recognized: {command.IssuedCommand.ToString()}!"
         };
     }
 
-    private CommandResponse RoomNotExistResponse(Command command)
+    private CommandResponse AirlockNotExistResponse(Command command)
     {
         return new CommandResponse()
         {
             ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"Error: Room {command.Args[0]} not exist!"
+            MessagePrefix = _whoAmI.ToString() + '>',
+            Message = $"Error: Airlock {command.ReceiverID} not exist!"
         };
     }
 
@@ -91,8 +75,8 @@ public class Drone : MonoBehaviour
         return new CommandResponse()
         {
             ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"Moving to room {command.Args[0]}."
+            MessagePrefix = _whoAmI.ToString() + '>',
+            Message = $"Used airlock {command.ReceiverID}."
         };
     }
 }

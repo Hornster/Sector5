@@ -21,31 +21,4 @@ public class RoomManager : Singleton<RoomManager>
 
         return null;
     }
-
-    public bool CheckFreeWay(int actualRoomId, int targetRoomId)
-    {
-        Room actualRoom = GetRoomById(actualRoomId);
-        Room targetRoom = GetRoomById(targetRoomId);
-
-        if (actualRoom == null || targetRoom == null)
-        {
-            Debug.Log("Wrong rooms ID");
-            return false;
-        }
-
-        return CheckDoorOpen(actualRoom.Doors, targetRoom.Doors);
-    }
-
-    private bool CheckDoorOpen(List<Door> actualRoomDoors, List<Door> targetRoomDoors)
-    {
-        for (int i = 0; i < actualRoomDoors.Count; i++)
-        {
-            if (targetRoomDoors.Contains(actualRoomDoors[i]))
-            {
-                return actualRoomDoors[i].IsOpen;
-            }
-        }
-
-        return false;
-    }
 }

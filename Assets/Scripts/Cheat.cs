@@ -10,40 +10,27 @@ public class Cheat : MonoBehaviour
     static void UseDoor0()
     {
         Debug.Log("UseDoor0 Start");
-        Room room = RoomManager.Instance.GetRoomById(0);
+        Airlock airlock = AirlockManager.Instance.GetAirlockById(0);
 
-        if(room == null)
+        if(airlock == null)
         {
-            Debug.Log("room0 notexist");
+            Debug.Log("airlock0 notexist");
             return;
         }
-
-        room.UseDoor(0);
+        airlock.Use();
     }
 
     [MenuItem("DoSomething/UseDoor1")]
     static void UseDoor1()
     {
         Debug.Log("UseDoor1 Start");
-        Room room = RoomManager.Instance.GetRoomById(1);
+        Airlock airlock = AirlockManager.Instance.GetAirlockById(1);
 
-        if(room == null)
+        if(airlock == null)
         {
-            Debug.Log("room1 notexist");
+            Debug.Log("airlock1 notexist");
             return;
         }
-
-        room.UseDoor(1);
-    }
-
-    [MenuItem("DoSomething/CheckFreeWayR0R1")]
-    static void CheckFreeWayR0R1()
-    {
-        Debug.Log("CheckFreeWayR0R1 Start");
-
-        bool isFreeWay = RoomManager.Instance.CheckFreeWay(0,1);
-        string info = isFreeWay == true ? "Way is open beetween R0 and R1" : "Way is block beetween R0 and R1";
-
-        Debug.Log(info);
+        airlock.Use();
     }
 }
