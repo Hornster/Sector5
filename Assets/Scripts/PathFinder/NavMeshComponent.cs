@@ -25,7 +25,7 @@ public class NavMeshComponent : MonoBehaviour
 
     public void SetDestination(GameObject gameObject)
     {
-        navMeshAgent.SetDestination(gameObject.transform.position);
+        targetPos = gameObject.transform.position;
     }
 
     public void Move()
@@ -33,7 +33,7 @@ public class NavMeshComponent : MonoBehaviour
         //navMeshAgent.SetDestination(vector3);
         NavMeshPath navMeshPath = new NavMeshPath();
         navMeshAgent.CalculatePath(targetPos, navMeshPath);
-        
+
         if (navMeshPath.status.Equals(NavMeshPathStatus.PathComplete))
         {
             navMeshAgent.isStopped = false;
