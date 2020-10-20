@@ -18,3 +18,6 @@ MonoBehaviour:
     - GO
     - Def
     - Int
+  _knownImplicitCommandsOverrides:
+    keys: 0100000002000000
+    values: 0100000003000000
