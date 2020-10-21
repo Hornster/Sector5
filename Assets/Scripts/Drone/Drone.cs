@@ -16,6 +16,8 @@ public class Drone : MonoBehaviour
     private NavMeshComponent navMeshComponent;
     [SerializeField]
     bool pathBlocked = false;
+    [SerializeField]
+    NavMeshPathStatus NavMeshPathStatus;
 
     private AvailableCommands _myCommand = AvailableCommands.Go;
     private CommandReceivers _whoAmI = CommandReceivers.Drone;
@@ -112,6 +114,7 @@ public class Drone : MonoBehaviour
 
     private void Update()
     {
+        NavMeshPathStatus = navMeshComponent.PathStatus;
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathPartial) && !pathBlocked)
         {
             pathBlocked = true;

@@ -8,9 +8,9 @@ public class NavMeshComponent : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
     [SerializeField]
-    Vector3? targetPos;
+    Vector3 targetPos;
     [SerializeField]
-    public NavMeshPathStatus PathStatus { get { return navMeshAgent.pathStatus; } }
+    public NavMeshPathStatus PathStatus { get { return GetPathStatus(); } }
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +24,17 @@ public class NavMeshComponent : MonoBehaviour
         navMeshAgent.SetDestination(vector3);
     }
 
+    private NavMeshPathStatus GetPathStatus()
+    {
+        NavMeshPath navMeshPath = new NavMeshPath();
+        navMeshAgent.CalculatePath(targetPos, navMeshPath);
+        return navMeshPath.status;
+    }
+
     public void SetDestination(GameObject gameObject)
     {
         targetPos = gameObject.transform.position;
+        navMeshAgent.SetDestination(targetPos);
     }
 
 }
