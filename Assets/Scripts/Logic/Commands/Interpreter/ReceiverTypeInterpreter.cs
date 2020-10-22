@@ -28,6 +28,7 @@ namespace Assets.Scripts.Logic.Commands.Interpreter
         private void Start()
         {
             _allReceivers = (Enum.GetValues(typeof(CommandReceivers)) as CommandReceivers[]).ToList();
+            _allReceivers.Remove(CommandReceivers.None); //We don't use this receiver anyway.
         }
         /// <summary>
         /// Performs interpretation of the first argument of the command.
