@@ -27,6 +27,12 @@ namespace Assets.Scripts.Logic.Data
         public List<int> Args { get; set; }
         public CommandError CommandParseError { get; set; }
 
+        public Command()
+        {
+            CommandReceiver = CommandReceivers.None;
+            IssuedCommand = AvailableCommands.NoCommand;
+        }
+
         public override string ToString()
         {
             var result = $"Command: {CommandReceiver.ToString()}{ReceiverID} {IssuedCommand}";

@@ -9,5 +9,9 @@ public enum CommandReceivers
 {
     Drone,
     Airlock,
-    Interface
+    Interface,
+    /// <summary>
+    /// Used only as default value.
+    /// </summary>
+    None
 }
