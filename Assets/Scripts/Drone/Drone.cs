@@ -12,6 +12,7 @@ public class Drone : MonoBehaviour
     private int currentRoomId = 0;
     [SerializeField]
     private int droneId = 1;
+    public int DroneId { get { return droneId; } }
     [SerializeField]
     private NavMeshComponent navMeshComponent;
     [SerializeField]
@@ -112,9 +113,20 @@ public class Drone : MonoBehaviour
         };
     }
 
+    private CommandResponse ReachedDestination()
+    {
+        return new CommandResponse()
+        {
+            ConsoleOutputType = ConsoleOutputType.Positive,
+            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            Message = $"R{droneId.ToString()} reached target"
+        };
+    }
+
     private void Update()
     {
         NavMeshPathStatus = navMeshComponent.PathStatus;
+
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathPartial) && !pathBlocked)
         {
             pathBlocked = true;
@@ -124,6 +136,12 @@ public class Drone : MonoBehaviour
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathComplete) && pathBlocked)
         {
             pathBlocked = false;
+        }
+
+        if(navMeshComponent.CheckDestination())
+        {
+            _response?.Invoke(ReachedDestination());
+            navMeshComponent.Stop();
         }
     }
 }

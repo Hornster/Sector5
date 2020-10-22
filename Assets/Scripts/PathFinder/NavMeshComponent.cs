@@ -20,8 +20,14 @@ public class NavMeshComponent : MonoBehaviour
 
     public void SetDestination(Vector3 vector3)
     {
+        navMeshAgent.isStopped = false;
         targetPos = vector3;
         navMeshAgent.SetDestination(vector3);
+    }
+
+    public void SetDestination(GameObject gameObject)
+    {
+        SetDestination(targetPos);
     }
 
     private NavMeshPathStatus GetPathStatus()
@@ -31,10 +37,13 @@ public class NavMeshComponent : MonoBehaviour
         return navMeshPath.status;
     }
 
-    public void SetDestination(GameObject gameObject)
+    public void Stop ()
     {
-        targetPos = gameObject.transform.position;
-        navMeshAgent.SetDestination(targetPos);
+        navMeshAgent.isStopped = true;
     }
 
+    public bool CheckDestination()
+    {
+        return !navMeshAgent.isStopped && Vector3.Distance(gameObject.transform.position, targetPos) < navMeshAgent.stoppingDistance;
+    }
 }
