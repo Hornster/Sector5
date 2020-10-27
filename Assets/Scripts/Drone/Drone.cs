@@ -14,13 +14,16 @@ public class Drone : MonoBehaviour
     private int droneId = 1;
     public int DroneId { get { return droneId; } }
     [SerializeField]
+    private Interface interfaceComponent;
+    [SerializeField]
     private NavMeshComponent navMeshComponent;
     [SerializeField]
     bool pathBlocked = false;
     [SerializeField]
     NavMeshPathStatus NavMeshPathStatus;
 
-    private AvailableCommands _myCommand = AvailableCommands.Go;
+    private AvailableCommands commandInterface = AvailableCommands.Interface;
+    private AvailableCommands commandGo = AvailableCommands.Go;
     private CommandReceivers _whoAmI = CommandReceivers.Drone;
 
     [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
@@ -42,9 +45,14 @@ public class Drone : MonoBehaviour
                 continue;
             }
 
-            if (currentlyProcessedCommand.IssuedCommand == _myCommand)
+            if (currentlyProcessedCommand.IssuedCommand == commandGo)
             {
                 GoToTargetRoom(currentlyProcessedCommand);
+            }
+            else if (currentlyProcessedCommand.IssuedCommand == commandInterface)
+            {
+                navMeshComponent.SetDestination(interfaceComponent.gameObject.transform.position);
+                _response?.Invoke(InterfaceResponse(currentlyProcessedCommand));
             }
             else
             {
@@ -110,6 +118,16 @@ public class Drone : MonoBehaviour
             ConsoleOutputType = ConsoleOutputType.Positive,
             MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
             Message = $"Moving to room {command.Args[0]}."
+        };
+    }
+
+    private CommandResponse InterfaceResponse(Command command)
+    {
+        return new CommandResponse()
+        {
+            ConsoleOutputType = ConsoleOutputType.Positive,
+            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            Message = $"Moving to interface."
         };
     }
 

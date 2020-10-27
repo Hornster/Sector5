@@ -8,7 +8,8 @@ using UnityEngine;
 public class InterfaceController : MonoBehaviour
 {
     public Interface interfaceScript;
-    private AvailableCommands _myCommand = AvailableCommands.Interface;
+    private AvailableCommands commandInterface = AvailableCommands.Interface;
+    private AvailableCommands commandDef = AvailableCommands.ToggleDefenseSystems;
     private CommandReceivers _whoAmI = CommandReceivers.Interface;
 
     [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
@@ -25,17 +26,14 @@ public class InterfaceController : MonoBehaviour
                 continue;
             }
 
-            if(currentlyProcessedCommand.IssuedCommand == _myCommand)
+            if(interfaceScript.IsActive == false)
             {
-                /*
-                    if("int nav")//nie wiem kompletnie jak zapisac komendy interfejsu.
+                _response?.Invoke(InterfaceNoActive(currentlyProcessedCommand));
+                continue;
+            }
 
-                */
-                if(interfaceScript.IsActive == false)
-                {
-                    _response?.Invoke(InterfaceNoActive(currentlyProcessedCommand));
-                    continue;
-                }
+            if(currentlyProcessedCommand.IssuedCommand == commandInterface)
+            {
                 if(interfaceScript.IsGained == false)
                 {
                     interfaceScript.GetResources();
@@ -45,6 +43,10 @@ public class InterfaceController : MonoBehaviour
                 {
                     _response?.Invoke(NoResources(currentlyProcessedCommand));
                 }
+            }
+            else if(currentlyProcessedCommand.IssuedCommand == commandDef)
+            {
+                _response?.Invoke(ToggleDefenseSystemResponse(currentlyProcessedCommand));
             }
             else
             {
@@ -84,7 +86,6 @@ public class InterfaceController : MonoBehaviour
         };
     }
 
-
     private CommandResponse PositiveResponse(Command command,string resourceName, float value)
     {
         return new CommandResponse()
@@ -92,6 +93,16 @@ public class InterfaceController : MonoBehaviour
             ConsoleOutputType = ConsoleOutputType.Positive,
             MessagePrefix = _whoAmI.ToString() + '>',
             Message = $"Gained {resourceName}: {value}."
+        };
+    }
+
+    private CommandResponse ToggleDefenseSystemResponse(Command command)
+    {
+        return new CommandResponse()
+        {
+            ConsoleOutputType = ConsoleOutputType.Positive,
+            MessagePrefix = _whoAmI.ToString() + '>',
+            Message = $"Toggle Defense System."
         };
     }
 }
