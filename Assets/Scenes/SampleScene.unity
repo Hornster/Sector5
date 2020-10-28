@@ -5601,7 +5601,7 @@ PrefabInstance:
     - target: {fileID: 5617063922723007826, guid: 42c2473a0ab5fc449b70fda9a267fc8a,
         type: 3}
       propertyPath: droneId
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5617063922723007829, guid: 42c2473a0ab5fc449b70fda9a267fc8a,
         type: 3}

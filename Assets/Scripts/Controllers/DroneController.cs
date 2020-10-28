@@ -35,15 +35,29 @@ namespace Assets.Scripts.Controllers
                     continue;
                 }
 
-                if(currentlyProcessedCommand.ReceiverID == 0)
+                if (currentlyProcessedCommand.ReceiverID == 0)
                 {
                     continue;
                 }
                 else
                 {
-                    DroneManager.Instance.Drones.FirstOrDefault(x => x.DroneId == currentlyProcessedCommand.ReceiverID)?.ProcessCommand(currentlyProcessedCommand);
+                    Drone drone = DroneManager.Instance.Drones.FirstOrDefault(x => x.DroneId == currentlyProcessedCommand.ReceiverID);
+                    if (drone != null)
+                        drone.ProcessCommand(currentlyProcessedCommand);
+                    else
+                        _response?.Invoke(DronekNotExistResponse(currentlyProcessedCommand));
                 }
             }
+        }
+
+        private CommandResponse DronekNotExistResponse(Command command)
+        {
+            return new CommandResponse()
+            {
+                ConsoleOutputType = ConsoleOutputType.Error,
+                MessagePrefix = _whoAmI.ToString() + '>',
+                Message = $"Error: Drone {command.ReceiverID} not exist!"
+            };
         }
     }
 }
