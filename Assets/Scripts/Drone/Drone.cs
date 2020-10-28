@@ -12,6 +12,9 @@ public class Drone : MonoBehaviour
     private int currentRoomId = 0;
     [SerializeField]
     private int droneId = 1;
+    public int DroneId { get { return droneId; } }
+    [SerializeField]
+    private Interface interfaceComponent;
     [SerializeField]
     private NavMeshComponent navMeshComponent;
     [SerializeField]
@@ -19,7 +22,8 @@ public class Drone : MonoBehaviour
     [SerializeField]
     NavMeshPathStatus NavMeshPathStatus;
 
-    private AvailableCommands _myCommand = AvailableCommands.Go;
+    private AvailableCommands commandInterface = AvailableCommands.Interface;
+    private AvailableCommands commandGo = AvailableCommands.Go;
     private CommandReceivers _whoAmI = CommandReceivers.Drone;
 
     [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
@@ -41,9 +45,14 @@ public class Drone : MonoBehaviour
                 continue;
             }
 
-            if (currentlyProcessedCommand.IssuedCommand == _myCommand)
+            if (currentlyProcessedCommand.IssuedCommand == commandGo)
             {
                 GoToTargetRoom(currentlyProcessedCommand);
+            }
+            else if (currentlyProcessedCommand.IssuedCommand == commandInterface)
+            {
+                navMeshComponent.SetDestination(interfaceComponent.gameObject.transform.position);
+                _response?.Invoke(InterfaceResponse(currentlyProcessedCommand));
             }
             else
             {
@@ -112,9 +121,30 @@ public class Drone : MonoBehaviour
         };
     }
 
+    private CommandResponse InterfaceResponse(Command command)
+    {
+        return new CommandResponse()
+        {
+            ConsoleOutputType = ConsoleOutputType.Positive,
+            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            Message = $"Moving to interface."
+        };
+    }
+
+    private CommandResponse ReachedDestination()
+    {
+        return new CommandResponse()
+        {
+            ConsoleOutputType = ConsoleOutputType.Positive,
+            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            Message = $"R{droneId.ToString()} reached target"
+        };
+    }
+
     private void Update()
     {
         NavMeshPathStatus = navMeshComponent.PathStatus;
+
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathPartial) && !pathBlocked)
         {
             pathBlocked = true;
@@ -124,6 +154,12 @@ public class Drone : MonoBehaviour
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathComplete) && pathBlocked)
         {
             pathBlocked = false;
+        }
+
+        if(navMeshComponent.CheckDestination())
+        {
+            _response?.Invoke(ReachedDestination());
+            navMeshComponent.Stop();
         }
     }
 }
