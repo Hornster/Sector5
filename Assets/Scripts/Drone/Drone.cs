@@ -5,6 +5,7 @@ using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Drone : MonoBehaviour
 {
@@ -35,29 +36,34 @@ public class Drone : MonoBehaviour
         for (int i = 0; i < commands.Count; i++)
         {
             var currentlyProcessedCommand = commands[i];
-            if (currentlyProcessedCommand.CommandReceiver != _whoAmI)
-            {
-                continue;
-            }
+            ProcessCommand(currentlyProcessedCommand);
+        }
+    }
 
-            if (currentlyProcessedCommand.ReceiverID != droneId)
-            {
-                continue;
-            }
+    public void ProcessCommand(Command currentlyProcessedCommand)
+    {
+        if (currentlyProcessedCommand.CommandReceiver != _whoAmI)
+        {
+            return;
+        }
 
-            if (currentlyProcessedCommand.IssuedCommand == commandGo)
-            {
-                GoToTargetRoom(currentlyProcessedCommand);
-            }
-            else if (currentlyProcessedCommand.IssuedCommand == commandInterface)
-            {
-                navMeshComponent.SetDestination(interfaceComponent.gameObject.transform.position);
-                _response?.Invoke(InterfaceResponse(currentlyProcessedCommand));
-            }
-            else
-            {
-                _response?.Invoke(NegativeResponse(currentlyProcessedCommand));
-            }
+        if (currentlyProcessedCommand.ReceiverID != droneId)
+        {
+            return;
+        }
+
+        if (currentlyProcessedCommand.IssuedCommand == commandGo)
+        {
+            GoToTargetRoom(currentlyProcessedCommand);
+        }
+        else if (currentlyProcessedCommand.IssuedCommand == commandInterface)
+        {
+            navMeshComponent.SetDestination(interfaceComponent.gameObject.transform.position);
+            _response?.Invoke(InterfaceResponse(currentlyProcessedCommand));
+        }
+        else
+        {
+            _response?.Invoke(NegativeResponse(currentlyProcessedCommand));
         }
     }
 
@@ -137,8 +143,13 @@ public class Drone : MonoBehaviour
         {
             ConsoleOutputType = ConsoleOutputType.Positive,
             MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"R{droneId.ToString()} reached target"
+            Message = $"D{droneId.ToString()} reached target"
         };
+    }
+
+    private void Start()
+    {
+        GetComponentInChildren<TextMesh>().text = $"D{droneId.ToString()}";
     }
 
     private void Update()
