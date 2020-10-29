@@ -21,13 +21,22 @@ public class Interface : InteractiveObject
         GetResources();
     }
 
+    private void Start()
+    {
+        GetComponentInChildren<TextMesh>().text = "Int";
+    }
+
+
+    public void ToggleDefenseSystem()
+    {
+        //responseMaganer.Instance.ToggleDefenseSystem();
+        Debug.Log("ToggleDefenseSystem");
+    }
+
     public void GetResources()
     {
-        if (IsActive == true && isGained == false)
-        {
-            PlayerManager.Instance.NavigationCoords.AddResource(NavCoordsReward);
-            isGained = true;
-        }
+        PlayerManager.Instance.NavigationCoords.AddResource(NavCoordsReward);
+        isGained = true;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Common.CustomEvents;
 using Assets.Scripts.Common.Enums;
 using Assets.Scripts.Logic.Data;
-using Assets.Scripts.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,55 +8,60 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Controllers
+public class DroneController : Controller
 {
-    public class DroneController : MonoBehaviour
+    protected override void Initialize()
     {
-        private List<Common.Enums.AvailableCommands> _myCommands = new List<Common.Enums.AvailableCommands>() { AvailableCommands.Go, AvailableCommands.Interface };
-        private CommandReceivers _whoAmI = CommandReceivers.Drone;
+        MyCommands = new List<AvailableCommands>() { AvailableCommands.Go, AvailableCommands.Interface };
+        WhoAmI = CommandReceivers.Drone;
+    }
 
-        [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
-        [SerializeField]
-        private CommandResponseUnityEvent _response;
+    protected override void Execute(InteractiveObject obj, Command command)
+    {
+        Drone drone = obj as Drone;
 
-        public void ReceiveCommand(List<Command> commands)
+        if(drone == null)
         {
-            for (int i = 0; i < commands.Count; i++)
-            {
-                var currentlyProcessedCommand = commands[i];
-                if (currentlyProcessedCommand.CommandReceiver != _whoAmI)
-                {
-                    continue;
-                }
-
-                if (!_myCommands.Contains(currentlyProcessedCommand.IssuedCommand))
-                {
-                    continue;
-                }
-
-                if (currentlyProcessedCommand.ReceiverID == 0)
-                {
-                    continue;
-                }
-                else
-                {
-                    Drone drone = DroneManager.Instance.Drones.FirstOrDefault(x => x.DroneId == currentlyProcessedCommand.ReceiverID);
-                    if (drone != null)
-                        drone.ProcessCommand(currentlyProcessedCommand);
-                    else
-                        _response?.Invoke(DronekNotExistResponse(currentlyProcessedCommand));
-                }
-            }
+            return;
         }
 
-        private CommandResponse DronekNotExistResponse(Command command)
+        if(command.IssuedCommand == AvailableCommands.Interface)
         {
-            return new CommandResponse()
-            {
-                ConsoleOutputType = ConsoleOutputType.Error,
-                MessagePrefix = _whoAmI.ToString() + '>',
-                Message = $"Error: Drone {command.ReceiverID} does not exist!"
-            };
+            GoToTargetInterface(command, drone);
         }
+        else if(command.IssuedCommand == AvailableCommands.Go)
+        {
+            GoToTargetRoom(command, drone);
+        }
+    }
+
+    private void GoToTargetInterface(Command command, Drone drone)
+    {
+        InteractiveObject interfaceObject = ObjectsManager.Instance.GetObject(0, CommandReceivers.Interface);
+
+        if (interfaceObject == null)
+        {
+            // _response?.Invoke(InterfaceNotExistResponse(command));
+            return;
+        }
+
+        drone.SetDestination(interfaceObject.gameObject.transform.position);
+        // _response?.Invoke(InterfaceResponse(command));
+    }
+
+    private void GoToTargetRoom(Command command, Drone drone)
+    {
+        int targetRoomId = command.Args[0];
+        Room room = RoomManager.Instance.GetRoomById(targetRoomId);
+
+        if (room == null)
+        {
+            // _response?.Invoke(RoomNotExistResponse(command));
+            return;
+        }
+
+        Vector3 targetRoomCenterPosition = room.GetCenter();
+        drone.SetDestination(targetRoomCenterPosition);
+        // _response?.Invoke(PositiveResponse(command));
     }
 }

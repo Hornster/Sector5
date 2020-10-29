@@ -10,6 +10,11 @@ public class Airlock : InteractiveObject
     public bool IsOpen { get => isOpen; private set => isOpen = value; }
     public GameObject AirlockObject { get => airlockObject; private set => airlockObject = value; }
 
+    private void Start()
+    {
+        GetComponentInChildren<TextMesh>().text = $"A{Id.ToString()}";
+    }
+
     public override void Use()
     {
         Toggle();

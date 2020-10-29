@@ -7,13 +7,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class Drone : MonoBehaviour
+public class Drone : InteractiveObject
 {
-    [SerializeField]
-    private int currentRoomId = 0;
-    [SerializeField]
-    private int droneId = 1;
-    public int DroneId { get { return droneId; } }
     [SerializeField]
     private Interface interfaceComponent;
     [SerializeField]
@@ -23,78 +18,14 @@ public class Drone : MonoBehaviour
     [SerializeField]
     NavMeshPathStatus NavMeshPathStatus;
 
-    private AvailableCommands commandInterface = AvailableCommands.Interface;
-    private AvailableCommands commandGo = AvailableCommands.Go;
-    private CommandReceivers _whoAmI = CommandReceivers.Drone;
-
-    [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
-    [SerializeField]
-    private CommandResponseUnityEvent _response;
-
-    public void ReceiveCommand(List<Command> commands)
+    public override void Use()
     {
-        for (int i = 0; i < commands.Count; i++)
-        {
-            var currentlyProcessedCommand = commands[i];
-            ProcessCommand(currentlyProcessedCommand);
-        }
-    }
-
-    public void ProcessCommand(Command currentlyProcessedCommand)
-    {
-        if (currentlyProcessedCommand.CommandReceiver != _whoAmI)
-        {
-            return;
-        }
-
-        if (currentlyProcessedCommand.ReceiverID != droneId)
-        {
-            return;
-        }
-
-        if (currentlyProcessedCommand.IssuedCommand == commandGo)
-        {
-            GoToTargetRoom(currentlyProcessedCommand);
-        }
-        else if (currentlyProcessedCommand.IssuedCommand == commandInterface)
-        {
-            navMeshComponent.SetDestination(interfaceComponent.gameObject.transform.position);
-            _response?.Invoke(InterfaceResponse(currentlyProcessedCommand));
-        }
-        else
-        {
-            _response?.Invoke(NegativeResponse(currentlyProcessedCommand));
-        }
-    }
-
-    private void GoToTargetRoom(Command currentlyProcessedCommand)
-    {
-        int targetRoomId = currentlyProcessedCommand.Args[0];
-        Room room = RoomManager.Instance.GetRoomById(targetRoomId);
-
-        if (room == null)
-        {
-            _response?.Invoke(RoomNotExistResponse(currentlyProcessedCommand));
-            return;
-        }
-
-        Vector3 targetRoomCenterPosition = room.GetCenter();
-
-        navMeshComponent.SetDestination(targetRoomCenterPosition);
-        currentRoomId = targetRoomId;
-
-        _response?.Invoke(PositiveResponse(currentlyProcessedCommand));
 
     }
 
-    private CommandResponse NegativeResponse(Command command)
+    public void SetDestination(Vector3 position)
     {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"Error: Command not recognized: {command.IssuedCommand.ToString()}!"
-        };
+        navMeshComponent.SetDestination(position);
     }
 
     private CommandResponse PathBlockedResponse()
@@ -102,38 +33,8 @@ public class Drone : MonoBehaviour
         return new CommandResponse()
         {
             ConsoleOutputType = ConsoleOutputType.Warning,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
+            MessagePrefix = CommandReceiverType.ToString() + Id.ToString() + '>',
             Message = string.Format("Path blocked")
-        };
-    }
-
-    private CommandResponse RoomNotExistResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"Error: Room {command.Args[0]} not exist!"
-        };
-    }
-
-    private CommandResponse PositiveResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"Moving to room {command.Args[0]}."
-        };
-    }
-
-    private CommandResponse InterfaceResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"Moving to interface."
         };
     }
 
@@ -142,14 +43,14 @@ public class Drone : MonoBehaviour
         return new CommandResponse()
         {
             ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = _whoAmI.ToString() + droneId.ToString() + '>',
-            Message = $"D{droneId.ToString()} reached target"
+            MessagePrefix = CommandReceiverType.ToString() + Id.ToString() + '>',
+            Message = $"D{Id.ToString()} reached target"
         };
     }
 
     private void Start()
     {
-        GetComponentInChildren<TextMesh>().text = $"D{droneId.ToString()}";
+        GetComponentInChildren<TextMesh>().text = $"D{Id.ToString()}";
     }
 
     private void Update()
@@ -159,7 +60,7 @@ public class Drone : MonoBehaviour
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathPartial) && !pathBlocked)
         {
             pathBlocked = true;
-            _response?.Invoke(PathBlockedResponse());
+            // _response?.Invoke(PathBlockedResponse());
         }
 
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathComplete) && pathBlocked)
@@ -169,7 +70,7 @@ public class Drone : MonoBehaviour
 
         if(navMeshComponent.CheckDestination())
         {
-            _response?.Invoke(ReachedDestination());
+            // _response?.Invoke(ReachedDestination());
             navMeshComponent.Stop();
         }
     }
