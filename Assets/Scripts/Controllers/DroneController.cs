@@ -56,7 +56,7 @@ namespace Assets.Scripts.Controllers
             {
                 ConsoleOutputType = ConsoleOutputType.Error,
                 MessagePrefix = _whoAmI.ToString() + '>',
-                Message = $"Error: Drone {command.ReceiverID} not exist!"
+                Message = $"Error: Drone {command.ReceiverID} does not exist!"
             };
         }
     }
