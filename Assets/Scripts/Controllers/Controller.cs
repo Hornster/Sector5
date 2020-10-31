@@ -42,12 +42,13 @@ public abstract class Controller : MonoBehaviour
 
             if (MyCommands.Contains(currentlyProcessedCommand.IssuedCommand) == false)
             {
+                ResponseManager.Instance.CommandNotRecognized(WhoAmI.ToString() + '>', currentlyProcessedCommand.IssuedCommand.ToString());
                 continue;
             }
 
             if (interactiveObject == null)
             {
-                //obiekt nie istnieje
+                ResponseManager.Instance.ObjectNotExist(WhoAmI.ToString() + '>', $"{WhoAmI}{currentlyProcessedCommand.ReceiverID}");
                 continue;
             }
             else

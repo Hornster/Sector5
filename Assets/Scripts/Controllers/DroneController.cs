@@ -46,7 +46,7 @@ public class DroneController : Controller
         }
 
         drone.SetDestination(interfaceObject.gameObject.transform.position);
-        // _response?.Invoke(InterfaceResponse(command));
+        ResponseManager.Instance.DroneMoveTo(WhoAmI.ToString() + drone.Id.ToString() + '>', "Interface");
     }
 
     private void GoToTargetRoom(Command command, Drone drone)
@@ -56,12 +56,12 @@ public class DroneController : Controller
 
         if (room == null)
         {
-            // _response?.Invoke(RoomNotExistResponse(command));
+            ResponseManager.Instance.RoomNotExist(WhoAmI.ToString() + drone.Id.ToString() + '>', command.Args[0].ToString());
             return;
         }
 
         Vector3 targetRoomCenterPosition = room.GetCenter();
         drone.SetDestination(targetRoomCenterPosition);
-        // _response?.Invoke(PositiveResponse(command));
+        ResponseManager.Instance.DroneMoveTo(WhoAmI.ToString() + drone.Id.ToString() + '>', "room " + command.Args[0].ToString());
     }
 }

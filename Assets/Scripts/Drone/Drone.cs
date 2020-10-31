@@ -28,26 +28,6 @@ public class Drone : InteractiveObject
         navMeshComponent.SetDestination(position);
     }
 
-    private CommandResponse PathBlockedResponse()
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Warning,
-            MessagePrefix = CommandReceiverType.ToString() + Id.ToString() + '>',
-            Message = string.Format("Path blocked")
-        };
-    }
-
-    private CommandResponse ReachedDestination()
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = CommandReceiverType.ToString() + Id.ToString() + '>',
-            Message = $"D{Id.ToString()} reached target"
-        };
-    }
-
     private void Start()
     {
         GetComponentInChildren<TextMesh>().text = $"D{Id.ToString()}";
@@ -60,7 +40,7 @@ public class Drone : InteractiveObject
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathPartial) && !pathBlocked)
         {
             pathBlocked = true;
-            // _response?.Invoke(PathBlockedResponse());
+            ResponseManager.Instance.PathBlocked(CommandReceiverType.ToString() + Id.ToString() + '>');
         }
 
         if (navMeshComponent.PathStatus.Equals(NavMeshPathStatus.PathComplete) && pathBlocked)
@@ -70,7 +50,7 @@ public class Drone : InteractiveObject
 
         if(navMeshComponent.CheckDestination())
         {
-            // _response?.Invoke(ReachedDestination());
+            ResponseManager.Instance.ReachDestination(CommandReceiverType.ToString() + Id.ToString() + '>', Id.ToString());
             navMeshComponent.Stop();
         }
     }

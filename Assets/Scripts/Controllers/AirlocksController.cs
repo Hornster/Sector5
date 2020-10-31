@@ -16,5 +16,6 @@ public class AirlocksController : Controller
     protected override void Execute(InteractiveObject obj, Command command)
     {
         obj.Use();
+        ResponseManager.Instance.UsedAirlock(WhoAmI.ToString() + '>', command.ReceiverID.ToString());
     }
 }

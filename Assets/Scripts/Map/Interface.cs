@@ -29,7 +29,6 @@ public class Interface : InteractiveObject
 
     public void ToggleDefenseSystem()
     {
-        //responseMaganer.Instance.ToggleDefenseSystem();
         Debug.Log("ToggleDefenseSystem");
     }
 
@@ -50,9 +49,8 @@ public class Interface : InteractiveObject
             if (IsActive == false)
             {
                 IsActive = true;
+                ResponseManager.Instance.InterfaceState($"{CommandReceiverType}>", IsActive);
             }
-
-            Debug.Log("Dron wykryty");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -66,9 +64,8 @@ public class Interface : InteractiveObject
             if(DronesInRangeNumber == 0)
             {
                 IsActive = false;
+                ResponseManager.Instance.InterfaceState($"{CommandReceiverType}>", IsActive);
             }
-
-            Debug.Log("Dron odszedl");
         }
     }
 }

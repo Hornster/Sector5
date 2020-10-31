@@ -19,12 +19,12 @@ public class InterfaceController : Controller
 
         if(interfaceObject == null)
         {
-            //interface is not active
+            //interface not exist
             return;
         }
         if(interfaceObject.IsActive == false)
         {
-            //interface is not active
+            ResponseManager.Instance.InterfaceNotActive(WhoAmI.ToString() + '>');
             return;
         }
 
@@ -32,14 +32,17 @@ public class InterfaceController : Controller
         {
             if(interfaceObject.IsGained == true)
             {
-                //no more resource czy cos
+                ResponseManager.Instance.NoResources(WhoAmI.ToString() + '>');
                 return;
             }
-                obj.Use();
+
+            obj.Use();
+            ResponseManager.Instance.GainedResources(WhoAmI.ToString() + '>', "NavCoords: " + interfaceObject.NavCoordsReward);
         }
         else if(command.IssuedCommand == AvailableCommands.ToggleDefenseSystems)
         {
             interfaceObject.ToggleDefenseSystem();
+            ResponseManager.Instance.ToggleDefenseSystem(WhoAmI.ToString() + '>');
         }
     }
 }

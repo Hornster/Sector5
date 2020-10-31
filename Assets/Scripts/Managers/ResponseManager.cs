@@ -15,6 +15,12 @@ class ResponseManager : Singleton<ResponseManager>
         string message = "Error! Command not recognized: " + command;
         _response?.Invoke(ErrorResponse(prefix, message));
     }
+
+    public void ObjectNotExist(string prefix, string name)
+    {
+        string message = "Error! " + name + " does not exist";
+        _response?.Invoke(ErrorResponse(prefix, message));
+    }
     #endregion
     #region Drone Responses
     public void DroneMoveTo(string prefix, string destination)
@@ -63,6 +69,13 @@ class ResponseManager : Singleton<ResponseManager>
     {
         string message = "Error! Interface not active";
         _response?.Invoke(ErrorResponse(prefix, message));
+    }
+
+    public void InterfaceState(string prefix,bool isActive)
+    {
+        string activeText = isActive ? "activated" : "deactivated";
+        string message = $"Interface {activeText}";
+        _response?.Invoke(PositiveResponse(prefix, message));
     }
 
     public void ToggleDefenseSystem(string prefix)
