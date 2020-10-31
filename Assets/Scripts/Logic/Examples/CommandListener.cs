@@ -18,10 +18,6 @@ namespace Assets.Scripts.Logic.Examples
         private AvailableCommands _myCommand = AvailableCommands.Go;
         private CommandReceivers _whoAmI = CommandReceivers.Drone;
 
-        [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
-        [SerializeField]
-        private CommandResponseUnityEvent _response;
-
         public void ReceiveCommand(List<Command> commands)
         {
             for (int i = 0; i < commands.Count; i++)
@@ -39,33 +35,13 @@ namespace Assets.Scripts.Logic.Examples
 
                 if (currentlyProcessedCommand.IssuedCommand != _myCommand)
                 {
-                    _response?.Invoke(NegativeResponse(currentlyProcessedCommand));
+                    ResponseManager.Instance.CommandNotRecognized(_whoAmI.ToString() + MyId.ToString() + '>', currentlyProcessedCommand.IssuedCommand.ToString());
                 }
                 else
                 {
-                    _response?.Invoke(PositiveResponse(currentlyProcessedCommand));
+                    ResponseManager.Instance.DroneMoveTo(_whoAmI.ToString() + MyId.ToString() + '>', "room " + currentlyProcessedCommand.Args[0].ToString());
                 }
             }
         }
-
-        private CommandResponse NegativeResponse(Command command)
-        {
-            return new CommandResponse()
-            {
-                ConsoleOutputType = ConsoleOutputType.Error,
-                MessagePrefix = _whoAmI.ToString() + MyId.ToString() + '>',
-                Message = $"Error: Command not recognized: {command.IssuedCommand.ToString()}!"
-            };
-        }
-        private CommandResponse PositiveResponse(Command command)
-        {
-            return new CommandResponse()
-            {
-                ConsoleOutputType = ConsoleOutputType.Positive,
-                MessagePrefix = _whoAmI.ToString() + MyId.ToString() + '>',
-                Message = $"Moving to room {command.Args[0]}."
-            };
-        }
-
     }
 }

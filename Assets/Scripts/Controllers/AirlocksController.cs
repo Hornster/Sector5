@@ -10,10 +10,6 @@ public class AirlocksController : MonoBehaviour
     private AvailableCommands _myCommand = AvailableCommands.ToggleAirlock;
     private CommandReceivers _whoAmI = CommandReceivers.Airlock;
 
-    [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
-    [SerializeField]
-    private CommandResponseUnityEvent _response;
-
     public void ReceiveCommand(List<Command> commands)
     {
         for (int i = 0; i < commands.Count; i++)
@@ -30,7 +26,7 @@ public class AirlocksController : MonoBehaviour
             }
             else
             {
-                _response?.Invoke(NegativeResponse(currentlyProcessedCommand));
+                ResponseManager.Instance.CommandNotRecognized(_whoAmI.ToString() + '>', currentlyProcessedCommand.IssuedCommand.ToString());
             }
         }
     }
@@ -42,41 +38,11 @@ public class AirlocksController : MonoBehaviour
 
         if (airlock == null)
         {
-            _response?.Invoke(AirlockNotExistResponse(currentlyProcessedCommand));
+            ResponseManager.Instance.AirlockNotExist(_whoAmI.ToString() + '>', currentlyProcessedCommand.ReceiverID.ToString());
             return;
         }
 
         airlock.Use();
-        _response?.Invoke(PositiveResponse(currentlyProcessedCommand));
-    }
-
-    private CommandResponse NegativeResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Error: Command not recognized: {command.IssuedCommand.ToString()}!"
-        };
-    }
-
-    private CommandResponse AirlockNotExistResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Error: Airlock {command.ReceiverID} not exist!"
-        };
-    }
-
-    private CommandResponse PositiveResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Used airlock {command.ReceiverID}."
-        };
+        ResponseManager.Instance.UsedAirlock(_whoAmI.ToString() + '>', currentlyProcessedCommand.ReceiverID.ToString());
     }
 }

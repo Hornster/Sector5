@@ -16,10 +16,6 @@ namespace Assets.Scripts.Controllers
         private List<Common.Enums.AvailableCommands> _myCommands = new List<Common.Enums.AvailableCommands>() { AvailableCommands.Go, AvailableCommands.Interface };
         private CommandReceivers _whoAmI = CommandReceivers.Drone;
 
-        [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
-        [SerializeField]
-        private CommandResponseUnityEvent _response;
-
         public void ReceiveCommand(List<Command> commands)
         {
             for (int i = 0; i < commands.Count; i++)
@@ -45,19 +41,9 @@ namespace Assets.Scripts.Controllers
                     if (drone != null)
                         drone.ProcessCommand(currentlyProcessedCommand);
                     else
-                        _response?.Invoke(DronekNotExistResponse(currentlyProcessedCommand));
+                        ResponseManager.Instance.DroneNotExist(_whoAmI.ToString() + '>', currentlyProcessedCommand.ReceiverID.ToString());                    
                 }
             }
-        }
-
-        private CommandResponse DronekNotExistResponse(Command command)
-        {
-            return new CommandResponse()
-            {
-                ConsoleOutputType = ConsoleOutputType.Error,
-                MessagePrefix = _whoAmI.ToString() + '>',
-                Message = $"Error: Drone {command.ReceiverID} does not exist!"
-            };
         }
     }
 }

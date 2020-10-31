@@ -12,10 +12,6 @@ public class InterfaceController : MonoBehaviour
     private AvailableCommands commandDef = AvailableCommands.ToggleDefenseSystems;
     private CommandReceivers _whoAmI = CommandReceivers.Interface;
 
-    [Tooltip("Used to yeet response to the console so user can see if we failed to execute the command or succeeded successfully.")]
-    [SerializeField]
-    private CommandResponseUnityEvent _response;
-
     public void ReceiveCommand(List<Command> commands)
     {
         for (int i = 0; i < commands.Count; i++)
@@ -28,7 +24,7 @@ public class InterfaceController : MonoBehaviour
 
             if(interfaceScript.IsActive == false)
             {
-                _response?.Invoke(InterfaceNoActive(currentlyProcessedCommand));
+                ResponseManager.Instance.InterfaceNotActive(_whoAmI.ToString() + '>');
                 continue;
             }
 
@@ -37,72 +33,21 @@ public class InterfaceController : MonoBehaviour
                 if(interfaceScript.IsGained == false)
                 {
                     interfaceScript.GetResources();
-                    _response?.Invoke(PositiveResponse(currentlyProcessedCommand,"NavCoords", interfaceScript.NavCoordsReward));
+                    ResponseManager.Instance.GainedResources(_whoAmI.ToString() + '>', "NavCoords: " + interfaceScript.NavCoordsReward);
                 }
                 else
                 {
-                    _response?.Invoke(NoResources(currentlyProcessedCommand));
+                    ResponseManager.Instance.NoResources(_whoAmI.ToString() + '>');
                 }
             }
             else if(currentlyProcessedCommand.IssuedCommand == commandDef)
             {
-                _response?.Invoke(ToggleDefenseSystemResponse(currentlyProcessedCommand));
+                ResponseManager.Instance.ToggleDefenseSystem(_whoAmI.ToString() + '>');
             }
             else
             {
-                _response?.Invoke(NegativeResponse(currentlyProcessedCommand));
+                ResponseManager.Instance.CommandNotRecognized(_whoAmI.ToString() + '>', currentlyProcessedCommand.IssuedCommand.ToString());
             }
         }
-    }
-
-
-    private CommandResponse NegativeResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Error: Command not recognized: {command.IssuedCommand.ToString()}!"
-        };
-    }
-
-    private CommandResponse NoResources(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Error: No more resources!"
-        };
-    }
-
-    private CommandResponse InterfaceNoActive(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Error,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Error: Interface  not active!"
-        };
-    }
-
-    private CommandResponse PositiveResponse(Command command,string resourceName, float value)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Gained {resourceName}: {value}."
-        };
-    }
-
-    private CommandResponse ToggleDefenseSystemResponse(Command command)
-    {
-        return new CommandResponse()
-        {
-            ConsoleOutputType = ConsoleOutputType.Positive,
-            MessagePrefix = _whoAmI.ToString() + '>',
-            Message = $"Toggle Defense System."
-        };
     }
 }
