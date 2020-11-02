@@ -66,7 +66,26 @@ namespace Assets.Scripts.UI.Console
         private void ReportCommandError(Command command)
         {
             _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, command.ToString());
-            _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, command.CommandParseError.ToString());
+            if (command.CommandParseError.ToString() == "ParseErrorIncorrectCommandType")
+            {
+            _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, "Error! Incorrect command type");
+            }
+            else if (command.CommandParseError.ToString() == "ParseErrorIncorrectCommandReceiver")
+            {
+                _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, "Error! Incorrect chosen receiver");
+            }
+            else if (command.CommandParseError.ToString() == "ParseErrorIncorrectReceiverID")
+            {
+                _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, "Error! Incorrect receiver ID");
+            }
+            else if (command.CommandParseError.ToString() == "ParseErrorIncorrectCommandArgs")
+            {
+                _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, "Error! Incorrect arguments");
+            }
+            else
+            {
+                _consoleOutput?.Invoke(ConsoleOutputType.Error, AutoResponsePrefix, "Error! Logic evaluation error");
+            }
         }
     }
 }
