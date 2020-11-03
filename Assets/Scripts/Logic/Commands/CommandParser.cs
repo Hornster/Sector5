@@ -150,10 +150,8 @@ namespace Assets.Scripts.Logic.Commands
                 currentlyProcessedCommand.Add(separatedCommands[0]);
             }
 
-            Debug.Log($"Command separator found! Separated commands count: {separatedCommands.Length}");
             for (int j = 1; j < separatedCommands.Length; j++)
             {
-                Debug.Log(separatedCommands[j]);
                 if (currentlyProcessedCommand.Count > 0)
                 {
                     //If we have at least one command segment in current command,

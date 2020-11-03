@@ -12,6 +12,36 @@
         ToggleAirlock,
         ToggleDefenseSystems,
         Interface,
-        NoCommand
+        NoCommand,
+
+#region BUILD_COMMANDS
+        BuildNoWall,
+        BuildNormalCorner,
+        BuildNormalSingle,
+        BuildNormalHalfCross,
+        BuildNormalCross,
+        BuildNormalHalfSingle,
+        BuildNormalOutsideDoor,
+        BuildNormalInsideDoor,
+        BuildNormalWindow,
+        BuildFloor,
+        BuildBasementCorner,
+        BuildBasementSingle,
+        BuildBasementHalfCross,
+        BuildBasementCross,
+        BuildBasementHalfSingle,
+        BuildBasementOutsideDoor,
+        BuildDumbledoor,
+        BuildBasementInsideDoor,
+        BuildBasementWindow,
+        BuildBasementThirdSquare,
+        BuildRoofTiltedNormal,
+        BuildRoofTiltedCorner,
+        BuildRoofTiltedWindow,
+        BuildRoofStraightNormal,
+        BuildRoofStraightCorner,
+        BuildRoofStraightChimney,
+#endregion BUILD_COMMANDS
+
     }
 }

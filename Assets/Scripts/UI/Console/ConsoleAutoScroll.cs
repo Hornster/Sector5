@@ -20,8 +20,10 @@ namespace Assets.Scripts.UI.Console
 
         public void AutoScroll()
         {
-            StartCoroutine(ApplyScrollPosition());
-
+            if (_scrollRect.isActiveAndEnabled)
+            {
+                StartCoroutine(ApplyScrollPosition());
+            }
         }
 
         private IEnumerator ApplyScrollPosition()
