@@ -11,6 +11,14 @@ public enum CommandReceivers
     Airlock,
     Interface,
     /// <summary>
+    /// Receiver that toggles the building design interface.
+    /// </summary>
+    Builder,
+    /// <summary>
+    /// Entity that builds walls.
+    /// </summary>
+    Constructor,
+    /// <summary>
     /// Used only as default value.
     /// </summary>
     None

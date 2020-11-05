@@ -5,11 +5,13 @@ using Assets.Scripts.Logic.Commands;
 using Assets.Scripts.Logic.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Scripts.UI.Console
 {
     public class ConsoleCommandRetriever : MonoBehaviour
     {
+        [SerializeField] private UnityEvent _clearConsoleInput;
         [SerializeField] private TMP_Text _inputText;
         [SerializeField] private const string AutoResponsePrefix = ">";
 
@@ -30,6 +32,10 @@ namespace Assets.Scripts.UI.Console
         public void NewCommandDelivered(string newInput)
         {
             _consoleOutput?.Invoke(ConsoleOutputType.Regular, AutoResponsePrefix, newInput);
+            _clearConsoleInput?.Invoke();
+            //Clear the input of the console.
+            _inputText.text = "";
+
             var result = _commandParser.TryParseCommand(newInput, out var commands);
             bool isCommandLogical = false;
             if (result)
