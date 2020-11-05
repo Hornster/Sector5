@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55a29dce1bf4154d92caf3be02c6c3b, type: 3}
+  m_Name: WallsConfig
+  m_EditorClassIdentifier: 
+  Types:
+  - Type: 1
+    Prefab: {fileID: 4213886619733706339, guid: 2c5f73a4900785a4ca853a65de98e30b,
+      type: 3}
+    Price: 0
+  - Type: 2
+    Prefab: {fileID: -5840088706688610678, guid: 67b5c4198671b2248ae64b045c205f9e,
+      type: 3}
+    Price: 0
+  - Type: 3
+    Prefab: {fileID: -5614490649971140063, guid: 628ea74f5c1af4a49a167aaa3d7792c2,
+      type: 3}
+    Price: 0
+  - Type: 4
+    Prefab: {fileID: 2552053887868509417, guid: 49b07305a2993d3439eff86e2597adb4,
+      type: 3}
+    Price: 0
+  - Type: 5
+    Prefab: {fileID: -9005996948927492678, guid: e3ae282313f710b4d9c1e0508bc071f8,
+      type: 3}
+    Price: 0
+  - Type: 6
+    Prefab: {fileID: 2602752091140235564, guid: c6f4fbdb34e536a468bdff52960b9916,
+      type: 3}
+    Price: 0
+  - Type: 7
+    Prefab: {fileID: 7872861668546006987, guid: 8747058f5dc03d744a8697cbf0c91e90,
+      type: 3}
+    Price: 0
+  - Type: 8
+    Prefab: {fileID: 5961949859091182762, guid: 7bcc04dc963802643ba2e0bf1c764942,
+      type: 3}
+    Price: 0
+  - Type: 9
+    Prefab: {fileID: 2109249694802154658, guid: 76d7ab5a535eed24380cf2ccb22e1a4b,
+      type: 3}
+    Price: 0
+  - Type: 10
+    Prefab: {fileID: 8502953012013346971, guid: 798edfece2b61964dad0b47cb880c75f,
+      type: 3}
+    Price: 0
+  - Type: 11
+    Prefab: {fileID: 3500125948452592713, guid: 26f7c1c315d78a343a6479f90896b4ba,
+      type: 3}
+    Price: 0
+  - Type: 12
+    Prefab: {fileID: 6752620796707973133, guid: efc2de08e87f4c74fa71e10daffa26be,
+      type: 3}
+    Price: 0
+  - Type: 13
+    Prefab: {fileID: 3887356508286461839, guid: 4b3e39f7629f8ae46babe11989788c04,
+      type: 3}
+    Price: 0
+  - Type: 14
+    Prefab: {fileID: 7547897692847194051, guid: 578f1281090705f47ad31ec87048d61f,
+      type: 3}
+    Price: 0
+  - Type: 15
+    Prefab: {fileID: 6962669399692568621, guid: bd80da65deccab34dadea01efaafa02d,
+      type: 3}
+    Price: 0
+  - Type: 16
+    Prefab: {fileID: 3312983086724692461, guid: fb725fdf3fcf448448713cea3c449fe3,
+      type: 3}
+    Price: 0
+  - Type: 17
+    Prefab: {fileID: 5080893423100919995, guid: c485c596a65b4b648bf691082390c8bb,
+      type: 3}
+    Price: 0
+  - Type: 18
+    Prefab: {fileID: 6303419552831578101, guid: 321933d5aaddd214aad514553bd45189,
+      type: 3}
+    Price: 0
+  - Type: 19
+    Prefab: {fileID: 5273864200846935132, guid: dbfbe641ffd16304bac636be96eac6ea,
+      type: 3}
+    Price: 0
+  - Type: 20
+    Prefab: {fileID: 3769848118370652508, guid: 0e9a39a6733ee0147b2c123909d06884,
+      type: 3}
+    Price: 0
+  - Type: 21
+    Prefab: {fileID: 7995889097571142646, guid: 3b3e42433149d724e9e7894642be9849,
+      type: 3}
+    Price: 0
+  - Type: 22
+    Prefab: {fileID: 3234970829683077872, guid: 0ac54ac1556c29644a37e45e3eefaed3,
+      type: 3}
+    Price: 0
+  - Type: 23
+    Prefab: {fileID: 1409277635275244372, guid: dc5e51e099071b84f8f04eae491f9e4b,
+      type: 3}
+    Price: 0
+  - Type: 24
+    Prefab: {fileID: 9045255932298032279, guid: 89e686c8c017b6b43b4dd0dea5b51055,
+      type: 3}
+    Price: 0
