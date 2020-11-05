@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 7808119295041870756}
   - component: {fileID: 2535855470640699285}
   - component: {fileID: 7872861668546006987}
-  - component: {fileID: 4386357023792674802}
-  - component: {fileID: 1463028585306244313}
   m_Layer: 9
   m_Name: e_07
   m_TagString: Untagged
@@ -94,32 +92,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31bc246ac3335bc4c9b24de6391e10d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!208 &4386357023792674802
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8632628265245611599}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1, y: 0.1, z: 1}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: -0.1, z: 0}
-  m_TimeToStationary: 0.5
---- !u!65 &1463028585306244313
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8632628265245611599}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.9999998, y: 0.20000012, z: 2.0000005}
-  m_Center: {x: 0, y: -0.10000006, z: 0}
