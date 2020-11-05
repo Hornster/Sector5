@@ -57,11 +57,16 @@ public class Tile : MonoBehaviour
     {
         var prefab = walls.Types.Find(x => x.Type == Type);
         var wall = Instantiate(prefab.Prefab, transform);
+        var textMeshObject = new GameObject();
         spriteRenderer.enabled = false;
 
         if (Type == ConstructType.NORMAL_WINDOW)
         {
             var lok = wall.gameObject.AddComponent<Airlock>();
+            var textMesh = textMeshObject.AddComponent<TextMesh>();
+            textMeshObject.transform.parent = wall.gameObject.transform;
+            textMeshObject.transform.eulerAngles = new Vector3(90, 0, 0);
+            textMeshObject.transform.localPosition = new Vector3(0, 0, 0);
             lok.Set(id, gameObject, false);
             ObjectsManager.Instance.AddObject(lok);
         }
