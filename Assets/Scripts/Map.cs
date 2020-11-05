@@ -31,7 +31,7 @@ public class Map : MonoBehaviour
         {
             var center = new GameObject();
             center.name = $"Room{i}";
-            center.transform.position = transforms.Find(x => x.name.Equals($"c{i}")).transform.position;
+            center.transform.position = transforms.Find(x => x.name.Equals($"c{i}")).transform.position + mapTransform.transform.position;
             var room = center.AddComponent<Room>();
             room.SetId(i);
             RoomManager.Instance.Rooms.Add(room);
