@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Assets.Scripts.Logic
 {
@@ -13,11 +15,16 @@ namespace Assets.Scripts.Logic
     /// </summary>
     public class InputReader : MonoBehaviour
     {
+        private static Keyboard _keyboard;
         private static UnityAction _submitEvent;
 
+        private void Start()
+        {
+            _keyboard = Keyboard.current;
+        }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (_keyboard.enterKey.wasPressedThisFrame)
             {
                 _submitEvent?.Invoke();
             }
