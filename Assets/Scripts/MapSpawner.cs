@@ -24,7 +24,7 @@ public class MapSpawner : Singleton<MapSpawner>
 
     public void SpawnMap(int id)
     {
-        var mapPrefab = Instantiate(prefabConfig.MapPrefab, new Vector3(0, 0.05f, 0), Quaternion.identity);
+        var mapPrefab = Instantiate(prefabConfig.MapPrefab, new Vector3(6.5f, 0.05f, -1.5f), Quaternion.identity);
         var map = mapPrefab.GetComponent<Map>();
 
         map.Spawn(mapPrefab.transform, LevelsConfigs[id].LevelMesh, prefabConfig.TilePrefab);
