@@ -2402,10 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d03976f5fc43f44e97ae7840f01d6c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rooms:
-  - {fileID: 1966405718}
-  - {fileID: 261912198}
-  - {fileID: 888037980}
+  rooms: []
 --- !u!1 &691812010
 GameObject:
   m_ObjectHideFlags: 0
