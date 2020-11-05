@@ -10,7 +10,6 @@ public class LevelContentConfig : Config
     public GameObject LevelMesh;
     public int LevelID;
     public List<ConstructData> ElementsCount;
-    public int LevelFloors;
 
     [System.Serializable]
     public class ConstructData
@@ -25,18 +24,13 @@ public class LevelContentConfig : Config
         }
     }
 
-    public void SetElementsCount(List<FloorData> floors)
+    public void SetElementsCount(List<Tile> tiles)
     {
         List<ConstructData> constructs = new List<ConstructData>();
         foreach(var type in (ConstructType[])Enum.GetValues(typeof(ConstructType)))
         {
-            constructs.Add(new ConstructData(type, GetCount(floors, type)));
+            constructs.Add(new ConstructData(type, tiles.Where(x=>x.Type == type).Count()));
         }
         ElementsCount = constructs;
-    }
-
-    private int GetCount(List<FloorData> floors, ConstructType type)
-    {
-        return floors.SelectMany(list => list.Tiles).Where(x => x.Type == type).Distinct().Count();
     }
 }

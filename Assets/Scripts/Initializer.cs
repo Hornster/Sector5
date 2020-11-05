@@ -15,7 +15,7 @@ public class Initializer : MonoBehaviour
         var wallsConfigs = ConfigLoader.GetConfig<WallsConfig>();
         wallsConfigs.Initialize();
 
-        var task = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        var task = SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
         task.completed += InitializeMap(levelConfigs, spritesConfig, prefabConfig);
     }
 

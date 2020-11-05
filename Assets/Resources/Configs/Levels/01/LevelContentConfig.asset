@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f49acfed0ff5b4d82daf891c73bcaf, type: 3}
   m_Name: LevelContentConfig
   m_EditorClassIdentifier: 
-  LevelMesh: {fileID: 919132149155446097, guid: d8dedbd8ed5dc7f46a0dc19338750dde,
+  LevelMesh: {fileID: 919132149155446097, guid: 1bc97698c540df648b3815de2e128cb6,
     type: 3}
   LevelID: 0
   ElementsCount: []
-  LevelFloors: 3
+  LevelFloors: 0

@@ -18,4 +18,9 @@ public class Room : MonoBehaviour
     {
         return transform.position;
     }
+
+    public void SetId(int id)
+    {
+        RoomId = id;
+    }
 }

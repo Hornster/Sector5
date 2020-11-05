@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,12 +37,33 @@ public class Tile : MonoBehaviour
 {
     public ConstructType Type;
     public SpriteRenderer spriteRenderer;
+    private WallsConfig walls;
 
     [ContextMenu("XD")]
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        walls = ConfigLoader.GetConfig<WallsConfig>();
     }
 
     public void SetSprite(Sprite sprite) => spriteRenderer.sprite = sprite;
+
+    public void PrepareToBuild()
+    {
+        
+    }
+
+    public void Build(int id)
+    {
+        var prefab = walls.Types.Find(x => x.Type == Type);
+        var wall = Instantiate(prefab.Prefab, transform);
+        spriteRenderer.enabled = false;
+
+        if (Type == ConstructType.NORMAL_WINDOW)
+        {
+            var lok = wall.gameObject.AddComponent<Airlock>();
+            lok.Set(id, gameObject, false);
+            ObjectsManager.Instance.AddObject(lok);
+        }
+    }
 }
