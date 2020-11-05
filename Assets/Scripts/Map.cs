@@ -33,6 +33,8 @@ public class Map : MonoBehaviour
             center.name = $"Room{i}";
             center.transform.position = transforms.Find(x => x.name.Equals($"c{i}")).transform.position + mapTransform.transform.position;
             var room = center.AddComponent<Room>();
+            var textMesh = center.AddComponent<TextMesh>();
+            textMesh.gameObject.transform.eulerAngles = new Vector3(90, 0, 0);
             room.SetId(i);
             RoomManager.Instance.Rooms.Add(room);
         }
